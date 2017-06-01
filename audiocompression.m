@@ -12,7 +12,7 @@ soundFlag=0;
 
 
 %% load audio
-pathToAudio='/Users/talha/Desktop/DSPlabexam/sample.wav'
+pathToAudio='/Users/talha/Desktop/DSPlabexam/sample.wav';
 [audio, samplingFrequency]=audioread(pathToAudio);
 
 %% Play input audio
@@ -77,7 +77,7 @@ end
 %% Calculating SNR 
 
 difSig=audio(1:length(reconstructedAudio))-reconstructedAudio;
-SNR = 10*log10(sum(reconstructedAudio.*reconstructedAudio)/sum(difSig.*difSig));
+SNR = 10*log10(sum(audio.^2)/sum(difSig.^2));
 
 
 %% play the compressed audio
