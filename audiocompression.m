@@ -24,17 +24,18 @@ thisWindow=0;
 reconstructedAudio=[];
 
 %% Selecting the frames
-while samplesToPick(length(samplesToPick))<= length(audio)
+while samplesToPick(length(samplesToPick)) <= length(audio)
     
     thisWindow=audio(samplesToPick);
     currentDCT=dct(thisWindow);
+    percentCoeff=.75;
+
     
     %% Pick dominant coefficients 
     if mode==1
         [sortedDCT,ind] = sort(abs(currentDCT),'descend');
     
         i = 1;
-        percentCoeff=.75;
         
         %iterating over the audio lenght to pick 
         while norm(currentDCT(ind(1:i)))/norm(currentDCT) < percentCoeff
@@ -43,21 +44,28 @@ while samplesToPick(length(samplesToPick))<= length(audio)
         needed = i;
         
         currentDCT(ind(needed+1:end)) = 0;
-        reconstructedWindow = idct(currentDCT);
-        
-        reconstructedAudio=[reconstructedAudio;reconstructedWindow];
-
-        %% test the reconstructions
-%         plot(thisWindow);
-%         hold on 
-%         plot(reconstructedWindow);
-%         pause(1)
-%         close all
-
+     
     
+        %% Pick first Coefficients of DCT
+        
+    elseif mode==0
+        currentDCT(floor(percentCoeff*length(currentDCT)):end)=0;
+
     end
     
-    %moving the window over the audio to pick next samples 
+    
+    %% Reconstruction
+
+    reconstructedWindow = idct(currentDCT);
+    reconstructedAudio=[reconstructedAudio;reconstructedWindow];
+    %% test the reconstructions
+        plot(thisWindow);
+        hold on 
+        plot(reconstructedWindow);
+        pause(1)
+        close all
+    
+    %% Moving the window over the audio to pick next samples 
     samplesToPick=samplesToPick+N;
 
 end
