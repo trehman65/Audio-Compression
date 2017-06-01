@@ -9,14 +9,17 @@ clc
 %% Flags
 %mode0=first N% DCT coefficients 
 %mode1=Dominant N% DCT coefficients 
+%debug1=plots window level plots
 mode=0;
+debug=1;
+soundFlag=1;
 
 
 %% load audio
 pathToAudio='/Users/talha/Desktop/DSPlabexam/sample.wav'
 [audio, samplingFrequency]=audioread(pathToAudio);
 
-%% Play audio
+%% Play input audio
 %sound(audio, samplingFrequency)
 
 %% Pick N samples 
@@ -61,11 +64,13 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
     reconstructedWindow = idct(currentDCT);
     reconstructedAudio=[reconstructedAudio;reconstructedWindow];
     %% test the reconstructions
-%         plot(thisWindow);
-%         hold on 
-%         plot(reconstructedWindow);
-%         pause(1)
-%         close all
+    if(debug==1)
+        plot(thisWindow);
+        hold on 
+        plot(reconstructedWindow);
+        pause(1)
+        close all
+    end
     
     %% Moving the window over the audio to pick next samples 
     samplesToPick=samplesToPick+N;
@@ -73,5 +78,6 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
 end
 
 %% play the compressed audio
-
-sound(reconstructedAudio, samplingFrequency)
+if(soundFlag==1)
+    sound(reconstructedAudio, samplingFrequency)
+end
