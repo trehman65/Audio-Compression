@@ -5,9 +5,10 @@ function SNR=audiocompression(N,percentCoeff,mode)
 %mode0=first N% DCT coefficients 
 %mode1=Dominant N% DCT coefficients 
 %debug1=plots window level plots
+
 %mode=0;
-debug=1;
-soundFlag=1;
+debug=0;
+soundFlag=0;
 
 
 %% load audio
@@ -76,7 +77,7 @@ end
 %% Calculating SNR 
 
 difSig=audio(1:length(reconstructedAudio))-reconstructedAudio;
-SNR = 10*log10(sum(reconstructedAudio.*reconstructedAudio)/sum(difSig.*difSig))
+SNR = 10*log10(sum(reconstructedAudio.*reconstructedAudio)/sum(difSig.*difSig));
 
 
 %% play the compressed audio
