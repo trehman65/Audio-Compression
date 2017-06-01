@@ -11,7 +11,7 @@ clc
 %mode1=Dominant N% DCT coefficients 
 %debug1=plots window level plots
 mode=0;
-debug=1;
+debug=0;
 soundFlag=1;
 
 
@@ -76,6 +76,12 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
     samplesToPick=samplesToPick+N;
 
 end
+
+%% Calculating SNR 
+
+difSig=audio(1:length(reconstructedAudio))-reconstructedAudio;
+SNR = 10*log10(sum(reconstructedAudio.*reconstructedAudio)/sum(difSig.*difSig))
+
 
 %% play the compressed audio
 if(soundFlag==1)
