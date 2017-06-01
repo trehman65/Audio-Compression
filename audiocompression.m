@@ -1,17 +1,12 @@
+function SNR=audiocompression(N,percentCoeff,mode)
 
-
-%% Initialization
-
-close all
-clear all
-clc
 
 %% Flags
 %mode0=first N% DCT coefficients 
 %mode1=Dominant N% DCT coefficients 
 %debug1=plots window level plots
-mode=0;
-debug=0;
+%mode=0;
+debug=1;
 soundFlag=1;
 
 
@@ -23,7 +18,8 @@ pathToAudio='/Users/talha/Desktop/DSPlabexam/sample.wav'
 %sound(audio, samplingFrequency)
 
 %% Pick N samples 
-N=64;
+
+%N=64;
 samplesToPick=1:N;
 thisWindow=0;
 reconstructedAudio=[];
@@ -33,7 +29,7 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
     
     thisWindow=audio(samplesToPick);
     currentDCT=dct(thisWindow);
-    percentCoeff=.75;
+   % percentCoeff=.75;
 
     
     %% Pick dominant coefficients 
@@ -86,4 +82,6 @@ SNR = 10*log10(sum(reconstructedAudio.*reconstructedAudio)/sum(difSig.*difSig))
 %% play the compressed audio
 if(soundFlag==1)
     sound(reconstructedAudio, samplingFrequency)
+end
+
 end
