@@ -9,7 +9,7 @@ clc
 %% Flags
 %mode0=first N% DCT coefficients 
 %mode1=Dominant N% DCT coefficients 
-mode=1;
+mode=0;
 
 
 %% load audio
@@ -61,11 +61,11 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
     reconstructedWindow = idct(currentDCT);
     reconstructedAudio=[reconstructedAudio;reconstructedWindow];
     %% test the reconstructions
-        plot(thisWindow);
-        hold on 
-        plot(reconstructedWindow);
-        pause(1)
-        close all
+%         plot(thisWindow);
+%         hold on 
+%         plot(reconstructedWindow);
+%         pause(1)
+%         close all
     
     %% Moving the window over the audio to pick next samples 
     samplesToPick=samplesToPick+N;
