@@ -36,16 +36,11 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
     %% Pick dominant coefficients 
     if mode==1
         [sortedDCT,ind] = sort(abs(currentDCT),'descend');
-    
-        i = 1;
         
-        %iterating over the audio lenght to pick 
-        while norm(currentDCT(ind(1:i)))/norm(currentDCT) < percentCoeff
-           i = i + 1;
-        end
-        needed = i;
+        ignoredInd=ind(floor(percentCoeff*length(sortedDCT)):end);
         
-        currentDCT(ind(needed+1:end)) = 0;
+        
+        currentDCT(ignoredInd) = 0;
      
     
         %% Pick first Coefficients of DCT

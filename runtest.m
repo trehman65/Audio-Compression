@@ -25,7 +25,7 @@ if plotmode == 0
 
     for i  = 1:length(N)
 
-        SNR(i)=audiocompression(N(i),.75,0);
+        SNR(i)=audiocompression(N(i),.75,1);
     end
     
     figure
@@ -71,7 +71,7 @@ if plotmode == 2
 
 
     title('Variation of SNR with size of window')
-    xlabel('Size of window')
+    xlabel('Percentage of DCT Coefficients selected')
     ylabel('SNR')
     legend('N=64','N=128','N=256','N=512')
 
