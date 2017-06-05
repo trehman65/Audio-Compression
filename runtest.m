@@ -6,7 +6,7 @@ clear all
 clc
 
 %% Operation Modes
-plotmode=3;
+plotmode=2;
 
 
 %% Define Parameters 
@@ -110,7 +110,7 @@ if plotmode == 3
         for j= 1:length(percentCoeff)
             SNR(j)=audiocompression(N(j),percentCoeff(i),1);
         end
-        plot(percentCoeff,SNR,'o-')
+        plot(N,SNR,'o-')
         hold on
     end
 

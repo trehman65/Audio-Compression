@@ -50,8 +50,8 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
         %% Pick first Coefficients of DCT
         
     elseif mode==0
-        currentDCT(floor(percentCoeff*length(currentDCT)):end)=0;
-
+        currentDCT(floor(percentCoeff*length(currentDCT)):end)=0
+        
     end
     
     
@@ -65,7 +65,7 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
         plot(thisWindow);
         hold on 
         plot(reconstructedWindow);
-        pause(1)
+        pause(2)
         close all
     end
     
