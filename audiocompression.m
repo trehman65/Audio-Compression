@@ -1,12 +1,19 @@
+%% Audio Compression using DCT
+
+
 function SNR=audiocompression(N,percentCoeff,mode)
+%% Output/Input Arguments 
+% * SNR = signal to noise ratio
+% * N = size of window
+% * percentCoeff = percenatge of DCT coefficients to be picked
+% * mode = operation mode(0: picks first DCT coefficients, 1:  picks dominant DCT coefficients)
 
 
 %% Flags
-%mode0=first N% DCT coefficients 
-%mode1=Dominant N% DCT coefficients 
+%mode0=pick first N% DCT coefficients 
+%mode1=pick Dominant N% DCT coefficients 
 %debug1=plots window level plots
 
-%mode=0;
 debug=0;
 soundFlag=0;
 
@@ -16,11 +23,11 @@ pathToAudio='/Users/talha/Desktop/DSPlabexam/sample.wav';
 [audio, samplingFrequency]=audioread(pathToAudio);
 
 %% Play input audio
-%sound(audio, samplingFrequency)
-
+if soundFlag ==1
+    sound(audio, samplingFrequency)
+end
 %% Pick N samples 
 
-%N=64;
 samplesToPick=1:N;
 thisWindow=0;
 reconstructedAudio=[];
@@ -30,16 +37,13 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
     
     thisWindow=audio(samplesToPick);
     currentDCT=dct(thisWindow);
-   % percentCoeff=.75;
 
     
     %% Pick dominant coefficients 
     if mode==1
-        [sortedDCT,ind] = sort(abs(currentDCT),'descend');
         
+        [sortedDCT,ind] = sort(abs(currentDCT),'descend');        
         ignoredInd=ind(floor(percentCoeff*length(sortedDCT)):end);
-        
-        
         currentDCT(ignoredInd) = 0;
      
     
@@ -55,6 +59,7 @@ while samplesToPick(length(samplesToPick)) <= length(audio)
 
     reconstructedWindow = idct(currentDCT);
     reconstructedAudio=[reconstructedAudio;reconstructedWindow];
+    
     %% test the reconstructions
     if(debug==1)
         plot(thisWindow);
